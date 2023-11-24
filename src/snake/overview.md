@@ -28,3 +28,19 @@ SnakeHead
      + background    (comon)
 
      + direction     (specific)
+
+
+     ______________DATA_____________
+
+     const snake = {}
+
+     ______________UI_____________
+
+     <Snake />
+        |
+        +----<Component />
+               |
+               +---<SnakeHead />
+               |
+               +---<SnakeTail />
+        
