@@ -3,10 +3,12 @@ import {useState, useEffect} from 'react';
 import './snake.scss';
 
 
-const Component = ({name}) => {
+const Component = ({name, children}) => {
 
     return (
-        <div class={name}></div>
+        <div class={name}>
+            {children}
+        </div>
     )
 }
 
@@ -20,6 +22,19 @@ const withCoordinates = (Component) => {
             <Component {...props}/>
         </div>
         )
+    }
+}
+
+const withDirection = (Component) => {
+
+    return ({dir, ...props}) => {
+        return (
+            <div className={`dir-${dir}`}>
+                <Component />
+
+            </div>
+        )
+
     }
 }
 // const SnakeHead = ({dir= 'up', top = 0, left = 0}) => {    
@@ -66,7 +81,16 @@ const withCoordinates = (Component) => {
 
 //     )
 // }
- const SnakeHead = withCoordinates(Component);
- const SnakeTail = withCoordinates(Component);
+ const SnakeHead = withCoordinates(withDirection(Component));
+ const SnakeTail = withCoordinates(withDirection(Component));
 
-export {SnakeHead, SnakeTail};
+ const Snake = () => {
+   return ( 
+    < Component name='snake'>
+        <SnakeHead top={100} left= {200} name='tail' dir='up'/>
+        <SnakeTail top={100} left= {200} name='tail' dir='down'/>
+    </Component>
+   )
+ }
+
+export {Snake};
